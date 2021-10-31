@@ -6,15 +6,18 @@
 source("Code/Data Input.R")
 
 
-# generate heatmap of monthly returns
+# Bitcoin: Generate heatmap of monthly returns
 source("Code/Analysis_heatmap.R")
 plot_heatmap
 
-# generate stock to flow
+# Bitcoin: Generate stock to flow
 source("Code/Analysis_stock_to_flow.R")
 plot_price_halvings
 plot_s2f
 
+# Economics: USD M2 money supply
+source("Code/Analysis_usd_m2.R")
+plot_m2
 
 
 
