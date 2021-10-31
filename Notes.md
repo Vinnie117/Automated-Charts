@@ -1,4 +1,4 @@
-Ideas for upcoming charts
+# Ideas for upcoming charts
 -> Look for charts that update through time and visibly show change
 
 Plot with CPI
