@@ -18,6 +18,7 @@ Asset simulation
 - Price of BTC and other assets (crypto?) indexed at 100 for start of period -> then evolvment over time
 - For period beginning each month= Each year?
 - "An innvestment of 100 in BTC at the start of the month would have yielded ... other assets (cryptos?) would have yielded...
+- Data quality for indices at Yahoo Finance should be fine (unlike for stocks)
 
 
 
