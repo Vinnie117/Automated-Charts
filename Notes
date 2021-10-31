@@ -2,13 +2,22 @@ Ideas for upcoming charts
 -> Look for charts that update through time and visibly show change
 
 Plot with CPI
-- monthly CPI change as bar
-- cumulative CPI change as line
+- monthly CPI change as bars
+- cumulative CPI changes (cumprod()) as line
 - 2 y axis
 
-Plot with
+Plot with correlation of returns
+- scatterplot of daily returns
+- x: BTC, y: other asset (crypto?)
+- x: BTC, y: BTC previous day
 
+Histogram of weekly BTC returns?
 
+Asset simulation
+- line charts
+- Price of BTC and other assets (crypto?) indexed at 100 for start of period -> then evolvment over time
+- For period beginning each month= Each year?
+- "An innvestment of 100 in BTC at the start of the month would have yielded ... other assets (cryptos?) would have yielded...
 
 
 
