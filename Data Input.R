@@ -1,13 +1,18 @@
 ########## Data Input ##########
 
+Sys.setlocale("LC_TIME", "English")
+
 # Libraries
 library(crypto2)
 library(tidyverse)
+library(readxl)
+library(quantmod)
+library(reshape2)
+library(lubridate)
 
 #### Functions
 
 # waiting between two API calls
-
 wait <- function(seconds){
   
     for (i in 1:seconds){
