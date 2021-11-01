@@ -13,7 +13,7 @@ library(cowplot)           # to arrange plots in a grid
 
 #### Functions
 
-# waiting between two API calls
+# waiting between two API calls, otherwise API limit is triggered
 wait <- function(seconds){
   
     for (i in 1:seconds){
@@ -27,11 +27,23 @@ wait <- function(seconds){
 #### Loading data
 
 # all active coins
-coins <- crypto_list(only_active=TRUE)
+list_coins <- crypto_list(only_active=TRUE)
 
 # historical Bitcoin prices
-btc_historic_raw <- crypto_history(coins, limit=1, start_date="20130430")
-#wait(70)
+btc_historic_raw <- crypto_history(list_coins, limit=1, start_date="20130430")
+wait(65)
+
+# sorted market caps of crypto
+# Set the date: get start and end date of analysis
+origin <- Sys.Date() %m-% years(1) %>% format(format = "%Y%m%d")
+crypto_ranks <- list_coins[order(list_coins$rank),] 
+# top 100 coins -> need to split, otherwise API limit is triggered (Max possible: 84 -> then HTTP error)
+crypto_ranks_1 <- crypto_ranks[1:50,]   
+crypto_ranks_2 <- crypto_ranks[51:100,] 
+# Calling API two times
+cryptos_1 <- crypto_history(coin_list = crypto_ranks_1, start_date = origin)
+wait(65)
+cryptos_2 <- crypto_history(coin_list = crypto_ranks_2, start_date = origin)
 
 # Fetch data from FRED
 getSymbols('M2SL',src='FRED')
