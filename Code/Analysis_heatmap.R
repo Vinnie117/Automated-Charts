@@ -9,7 +9,7 @@ ts <- xts(df[,-1], order.by=df[,1])
 
 #### calculate monthly returns
 monthly_returns <- monthlyReturn(ts)
-monthly_returns <- monthly_returns[-c(1,nrow(monthly_returns)),]
+monthly_returns <- monthly_returns[-1,]
 
 # convert back to dataframe required by ggplot
 df <- data.frame(timestamp = index(monthly_returns), return = monthly_returns)

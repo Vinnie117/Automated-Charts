@@ -15,6 +15,9 @@ source("Code/Analysis_stock_to_flow.R")
 plot_price_halvings
 plot_s2f
 
+# Bitcoin: Generate market dominance
+source("Code/Analysis_market_dominance.R")
+
 # Economics: USD M2 money supply
 source("Code/Analysis_usd_m2.R")
 plot_m2

@@ -31,7 +31,7 @@ coins <- crypto_list(only_active=TRUE)
 
 # historical Bitcoin prices
 btc_historic_raw <- crypto_history(coins, limit=1, start_date="20130430")
-wait(70)
+#wait(70)
 
 # Fetch data from FRED
 getSymbols('M2SL',src='FRED')
