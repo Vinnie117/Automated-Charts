@@ -17,22 +17,11 @@ plot_s2f
 
 # Bitcoin: Generate market dominance
 source("Code/Analysis_market_dominance.R")
+plot_market_dominance
 
 # Economics: USD M2 money supply
 source("Code/Analysis_usd_m2.R")
 plot_m2
-
-
-########################################
-# To do
-
-# Add data input of bitcoin market dominance
-# 
-# - in data input: rename "coins" to "list_coins"
-# - specify origin for each analysis -> input for crypto_history
-#   but where? here in master file? in each Analysis file? or in data input?
-#   -> probably best in data input, makes the most sense?
-#   -> build a funtion for it?
 
 
 
