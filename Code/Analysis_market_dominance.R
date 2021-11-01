@@ -6,14 +6,14 @@
 df_raw <- rbind(cryptos_1, cryptos_2)
 
 # keep relevant columns
-df3 <- df3_raw[,c(1,4,12)]
+df <- df_raw[,c(1,4,12)]
 
 
 ######## Data Preparation
 
 # separate Bitcoin from Altcoins
-bitcoin <- df3 %>% filter(name == "Bitcoin")
-alts <- df3 %>% filter(name != "Bitcoin")
+bitcoin <- df %>% filter(name == "Bitcoin")
+alts <- df %>% filter(name != "Bitcoin")
 
 # calculate aggregate market cap of altcoins for each date
 alts_marketcap <- alts %>% group_by(timestamp) %>% summarise(market_cap = sum(market_cap))
