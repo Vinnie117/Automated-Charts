@@ -31,6 +31,10 @@ Bitcoin market cap growth
 - growth / reduction of market cap eacht month ?
 - Or: absolute number of market cap of BTC per month and then growth indicated as text on the bars
 
+Central Banks
+- monthly data?
+- balance sheet total assets
+
 
 
 
