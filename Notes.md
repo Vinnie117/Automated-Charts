@@ -14,6 +14,11 @@ Plot with correlation of returns
 - x: BTC, y: other asset (crypto?)
 - x: BTC, y: BTC previous day
 
+Plot with correlation of returns over asset classes
+- Flipped bar chart
+- 12 month rolling correlation?
+- For each end of month?
+
 Histogram of weekly BTC returns?
 
 Asset simulation
