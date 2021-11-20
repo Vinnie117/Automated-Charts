@@ -14,11 +14,16 @@ Plot with correlation of returns
 - x: BTC, y: other asset (crypto?)
 - x: BTC, y: BTC previous day
 
+Plot with correlation of returns over asset classes
+- Flipped bar chart
+- 12 month rolling correlation?
+- For each end of month?
+
 Histogram of weekly BTC returns?
 
 Asset simulation
 - good for automated charts
-- line charts
+- line charts for longer time horizons, bar charts for month periods?
 - Price of BTC and other assets (crypto?) indexed at 100 for start of period -> then evolvment over time
 - For period beginning each month? Each year? On a rolling 12 month basis? -> do for fixed and rolling starting point and for varying investment horizon
 - "An innvestment of 100 in BTC at the start of the month would have yielded ... other assets (cryptos?) would have yielded...
@@ -31,17 +36,7 @@ Bitcoin market cap growth
 - growth / reduction of market cap eacht month ?
 - Or: absolute number of market cap of BTC per month and then growth indicated as text on the bars
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Central Banks
+- monthly data?
+- balance sheet total assets
 
