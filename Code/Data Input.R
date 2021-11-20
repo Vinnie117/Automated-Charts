@@ -10,6 +10,7 @@ library(quantmod)          # package can query some finance / economics websites
 library(reshape2)          # data frame formatting, e.g. format data frame from long to wide
 library(lubridate)         # tidyverse package to work with dates and times
 library(cowplot)           # to arrange plots in a grid
+library(scales)            # to edit ggplot2 scales
 
 #### Functions
 
@@ -29,7 +30,7 @@ wait <- function(seconds){
 # all active coins
 list_coins <- crypto_list(only_active=TRUE)
 
-# historical Bitcoin prices
+# historical Bitcoin data: prices, volume, market cap
 btc_historic_raw <- crypto_history(list_coins, limit=1, start_date="20130430")
 wait(65)
 
