@@ -32,6 +32,10 @@ source("Code/Analysis_usd_m2.R")
 plot_m2
 
 
+# Economics: U.S. CPI inflation YoY
+source("Code/Analysis_usd_cpi.R")
+plot_us_cpi
+
 
 
 
