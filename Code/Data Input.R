@@ -48,6 +48,7 @@ cryptos_2 <- crypto_history(coin_list = crypto_ranks_2, start_date = origin)
 
 # Fetch data from FRED
 getSymbols('M2SL',src='FRED')
+getSymbols('CPIAUCSL',src='FRED')
 
 
 
