@@ -10,6 +10,8 @@ data <- data %>% mutate(change=(data$m2-lag(data$m2,12))/lag(data$m2,12)*100)
 data$change <- round(data$change,2)
 change <- data.frame(data[,c(1,3)])
 
+rm(M2SL)
+
 ######## Visualization
 
 #### historic

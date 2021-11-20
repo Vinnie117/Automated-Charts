@@ -18,6 +18,8 @@ df$cpi_yoy <- (df$CPIAUCSL / df$cpi_lag_12m) - 1
 # drop first 12 rows -> no data for YoY change calculation
 df <- df[-c(1:12),]
 
+rm(CPIAUCSL)
+
 ######## Visualization
 
 top <- as.numeric(format(round(max(df$cpi_yoy), 2), nsmall = 2)) + 0.02
