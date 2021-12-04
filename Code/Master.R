@@ -13,7 +13,7 @@ plot_heatmap
 
 # Bitcoin: Generate stock to flow
 source("Code/Analysis_stock_to_flow.R")
-plot_price_halvings
+plot_price_halvings 
 plot_s2f
 
 
