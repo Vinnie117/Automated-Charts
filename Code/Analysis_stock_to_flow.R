@@ -134,7 +134,7 @@ plot_price_halvings <- ggplot(data = df, aes(x = timestamp, y = close, color = m
   scale_x_continuous(breaks = seq(ymd('2013-01-01'),ymd('2025-01-01'), by = '1 year'),
                      labels = as.character(c(2013:2025))) +
   scale_color_gradientn(colours = c("red", "yellow", "green", "blue"), trans = 'reverse') +
-  theme(legend.key.width = unit(5, 'cm'))
+  theme(legend.key.width = unit(2, 'cm'))
 
 
 
