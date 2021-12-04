@@ -19,6 +19,11 @@ Plot with correlation of returns over asset classes
 - 12 month rolling correlation?
 - For each end of month?
 
+Drawdowns
+- scatterplot, weekly drawdowns
+- Bitcoin only over Time
+- Bitcoin compared to other assets
+
 Histogram of weekly BTC returns?
 
 Asset simulation
