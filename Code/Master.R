@@ -1,10 +1,9 @@
 ########## MASTER FILE ##########
-
 # to generate all monthly charts automatically
+
 
 # load data
 source("Code/Data Input.R")
-
 
 # Bitcoin: Generate heatmap of monthly returns
 source("Code/Analysis_heatmap.R")
@@ -37,7 +36,17 @@ source("Code/Analysis_usd_cpi.R")
 plot_us_cpi
 
 
+# Finance: 4 Barcharts of monthly performances - BTC vs other assets
+source("Code/Performance.R")
+plot_btc_vs_assets_bars
 
+# Finance: 4 Linecharts with daily data of yearly performances - BTC vs other assets
+source("Code/Analysis_finance_btc_vs_assets_lines.R")
+plot_btc_vs_assets_lines
+
+# Finance: 1 vertical barchart with monthly performance of BTC vs 11 stock sectors
+source("Code/Analysis_finance_btc_vs_sectors.R")
+plot_btc_vs_sectors
 
 
 
