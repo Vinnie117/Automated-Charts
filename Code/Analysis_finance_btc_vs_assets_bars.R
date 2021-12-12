@@ -1,17 +1,23 @@
 ######## Barplots of Performances: Bitcoin vs other asset classes ########
 
-chart <- function(x){
+# Function to create plot
+# - title changes dynamically
+# - case_when() cannot be used in the main for-loop to fill plotlist bc it does not take S3 objects (ggplot) on RHS as input
+chart <- function(){
   ggplot(data=plot_monthly_df, aes(x=reorder(asset, -return), y=return, fill = as.factor(orange))) +
     geom_bar(stat="identity") +
     theme(legend.position="none") +
     scale_fill_manual(values = c("steelblue", "orange")) +
     labs(x = "Asset", y = "Return",
-         title = paste0(x,": Market Performance"), 
+         title = paste0(case_when(names(list_asset_names)[i] =="index_names" ~ "Bitcoin vs. Major Stock Indexes" ,
+                                  names(list_asset_names)[i] =="em_names" ~ "Bitcoin vs. Stocks Emerging Markets",
+                                  names(list_asset_names)[i] =="dm_names" ~ "Bitcoin vs. Stocks Developed Markets",
+                                  names(list_asset_names)[i] =="commodities_names" ~ "Bitcoin vs. Commodities"),
+                        ": Market Performance"), 
          subtitle = time,
          caption = "Data: Yahoo Finance") +
     scale_y_continuous(labels = scales::percent_format(accuracy = 1))
 }
-
 
 #### Data Handling
 
@@ -41,25 +47,10 @@ for(i in 1:length(list_asset_names)){
     as.Date() %>% 
     format(format =  "%B %Y")
   
-  # cannot use case_when()
-  # Plot title changes depending on assets
-  list_barplots_btc_vs_assets[[i]] <- if(names(list_asset_names)[i] =="index_names"){
-    chart("Bitcoin vs. Major Stock Indexes")} else {
-      if(names(list_asset_names)[i] =="em_names"){chart("Bitcoin vs. Stocks Emerging Markets")} else {
-        if(names(list_asset_names)[i] =="dm_names"){chart("Bitcoin vs. Stocks Developed Markets")} else{
-          if(names(list_asset_names)[i] =="commodities_names"){chart("Bitcoin vs. Commodities")}
-        }
-      }
-    }
+  # fill the list with single charts 
+  list_barplots_btc_vs_assets[[i]] <- chart()
   
   names(list_barplots_btc_vs_assets)[[i]] <- paste0("barplot_btc_vs_", names(list_asset_codes[i]))
 
 }
 
-# # Why does this not work?
-# case_when(names(list_asset_names)[i] =="index_names" ~ chart("Bitcoin vs. Major Stock Indexes"),
-#           names(list_asset_names)[i] =="em_names" ~ chart("Bitcoin vs. Stocks Emerging Markets"),
-#           names(list_asset_names)[i] =="dm_names" ~ chart("Bitcoin vs. Stocks Developed Markets"),
-#           names(list_asset_names)[i] =="commodities_names" ~ chart("Bitcoin vs. Commodities"))
-# 
-# case_when(names(list_asset_names)[i] =="index_names" ~ chart("Bitcoin vs. Major Stock Indexes"))
