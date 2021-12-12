@@ -1,12 +1,36 @@
 ######## Linecharts of Performances: Bitcoin vs other asset classes ########
 
+# Function to create plot
+# - title changes dynamically
+# - case_when() cannot be used in the main for-loop to fill plotlist bc it does not take S3 objects (ggplot) on RHS as input
+linechart <- function(){
+  ggplot(plot_daily_df, aes(x = as.Date(timestamp), y = index)) + 
+    geom_line(aes(color = as.factor(asset)), size = 1) +
+    scale_color_manual(values = c("orange", hue_pal()(length(list_asset_names[[i]])))) +
+    labs(x = "Time", y = "Value",
+         title = paste0(case_when(names(list_asset_names)[i] =="index_names" ~ "Bitcoin vs. Major Stock Indexes" ,
+                                  names(list_asset_names)[i] =="em_names" ~ "Bitcoin vs. Stocks Emerging Markets",
+                                  names(list_asset_names)[i] =="dm_names" ~ "Bitcoin vs. Stocks Developed Markets",
+                                  names(list_asset_names)[i] =="commodities_names" ~ "Bitcoin vs. Commodities"),
+                        ": Trajectory of Market Performance"), 
+         subtitle = paste0("Growth of $100 invested over last ", last_months-1 , " months"),
+         caption = "Data: Yahoo Finance",
+         color = "Asset") +
+    scale_x_date(date_labels = "%b-%y", breaks = seq(start, end, by = "2 months")) +
+    theme(legend.key.size = unit(0.2, 'cm'),
+          legend.key.width= unit(0.5, 'cm'),
+          legend.background = element_rect(fill=alpha('grey', 0)),
+          legend.title = element_blank()) +
+    guides(color = guide_legend(override.aes = list(size = 2) ) )
+}
+
 
 #### Data Handling
 
 # initiate empty list which will contain all the plots
 list_linecharts_btc_vs_assets <- list()
 
-
+# For each asset mix
 for(i in 1:length(list_asset_names)){
   
   # fetch data from quantmod and put into list of xts with price data
@@ -52,21 +76,8 @@ for(i in 1:length(list_asset_names)){
   end <- floor_date(end[length(end)], "month")
   start <- end %m-% months(last_months-1)
   
-  list_linecharts_btc_vs_assets[[i]] <- ggplot(plot_daily_df, aes(x = as.Date(timestamp), y = index)) + 
-    geom_line(aes(color = as.factor(asset)), size = 1) +
-    scale_color_manual(values = c("orange", hue_pal()(length(list_asset_names[[i]])))) +
-    labs(x = "Time", y = "Value",
-         title = "Market Performance: Nominal Returns by Asset Class through Time", 
-         subtitle = paste0("Growth of $100 invested over last ", last_months-1 , " months"),
-         caption = "Data: Yahoo Finance",
-         color = "Asset") +
-    scale_x_date(date_labels = "%b-%y", breaks = seq(start, end, by = "2 months")) +
-    theme(legend.key.size = unit(0.2, 'cm'),
-          legend.key.width= unit(0.5, 'cm'),
-          legend.background = element_rect(fill=alpha('grey', 0)),
-          legend.title = element_blank()) +
-    guides(color = guide_legend(override.aes = list(size = 2) ) )
-  
+  # fill the list with single charts 
+  list_linecharts_btc_vs_assets[[i]] <- linechart()
   
   names(list_linecharts_btc_vs_assets)[[i]] <- paste0("linechart_btc_vs_", names(list_asset_codes[i]))
   

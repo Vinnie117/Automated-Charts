@@ -3,7 +3,7 @@
 # Function to create plot
 # - title changes dynamically
 # - case_when() cannot be used in the main for-loop to fill plotlist bc it does not take S3 objects (ggplot) on RHS as input
-chart <- function(){
+barchart <- function(){
   ggplot(data=plot_monthly_df, aes(x=reorder(asset, -return), y=return, fill = as.factor(orange))) +
     geom_bar(stat="identity") +
     theme(legend.position="none") +
@@ -24,7 +24,7 @@ chart <- function(){
 # initiate empty list which will contain all the plots
 list_barplots_btc_vs_assets <- list()
 
-
+# For each asset mix
 for(i in 1:length(list_asset_names)){
   
   # fetch data from quantmod and put into list of xts with price data
@@ -48,7 +48,7 @@ for(i in 1:length(list_asset_names)){
     format(format =  "%B %Y")
   
   # fill the list with single charts 
-  list_barplots_btc_vs_assets[[i]] <- chart()
+  list_barplots_btc_vs_assets[[i]] <- barchart()
   
   names(list_barplots_btc_vs_assets)[[i]] <- paste0("barplot_btc_vs_", names(list_asset_codes[i]))
 
