@@ -78,6 +78,35 @@ get_monthly_return <- function(x){
   names(df_monthly_returns)[2] <<- "Bitcoin"
 }
 
+
+# Function to create a data frame of daily returns from a list of xts objects with prices
+get_daily_return <- function(x){
+  for (i in 1:length(list_assets_2)){
+    
+    # create xts object with daily returns per asset
+    data <- dailyReturn(list_assets_2[[i]])
+    #assign(paste0("return_daily_", names(list_assets_2)[i]), data)
+    ret <- data.frame(timestamp = format(index(data), format="%Y-%m-%d"),
+                      value = data,
+                      row.names = seq(1:nrow(data)))
+    
+    # collect data in a list
+    list_daily_returns[[x[i]]] <<- ret
+    rm(ret)
+  }
+  
+  df_daily_returns <<- Reduce(function(x, y) merge(x, y, by = "timestamp", all=TRUE), list_daily_returns) 
+  names(df_daily_returns) <<- c("timestamp", names(list_assets_2))
+  
+  
+  # Add BTC daily returns
+  df_daily_returns <<- merge(x = daily_return_btc, y = df_daily_returns,
+                            by = "timestamp", all = TRUE)
+  names(df_daily_returns)[2] <<- "Bitcoin"
+}
+
+
+
 #### Loading data
 
 # all active coins
@@ -150,11 +179,9 @@ daily_return_btc$timestamp <- format(as.Date(rownames(daily_return_btc)), format
 
 
 #### Other assets -> collect all prices in a list
-#dataprep(assets, asset_names)
 dataprep_sectors(sectors)
 
 # remove raw data to clean up global environment (doing so in function is bad idea)
-#rm(list = assets)
 rm(list = sectors)
 
 

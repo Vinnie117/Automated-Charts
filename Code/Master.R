@@ -43,16 +43,31 @@ list_barplots_btc_vs_assets[["barplot_btc_vs_dm"]]
 list_barplots_btc_vs_assets[["barplot_btc_vs_em"]]
 list_barplots_btc_vs_assets[["barplot_btc_vs_commodities"]]
 
-Analysis_finance_btc_vs_assets_bars
-
 
 # Finance: 4 Linecharts with daily data of yearly performances - BTC vs other assets
 source("Code/Analysis_finance_btc_vs_assets_lines.R")
+list_linecharts_btc_vs_assets[["linechart_btc_vs_index"]]
+list_linecharts_btc_vs_assets[["linechart_btc_vs_em"]]
+list_linecharts_btc_vs_assets[["linechart_btc_vs_dm"]]
+list_linecharts_btc_vs_assets[["linechart_btc_vs_commodities"]]
+
+
+
+source("Code/Analysis_finance_btc_vs_assets_lines.R")
 plot_btc_vs_assets_lines
+
+
+
 
 # Finance: 1 vertical barchart with monthly performance of BTC vs 11 stock sectors
 source("Code/Analysis_finance_btc_vs_sectors.R")
 plot_btc_vs_sectors
+
+
+
+# Cleaning
+rm(list = c(index, em, dm, commodities))
+
 
 
 
