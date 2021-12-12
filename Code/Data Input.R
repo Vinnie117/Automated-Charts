@@ -148,17 +148,34 @@ dm <- c("URTH", "EWJ", "EWG", "EWQ", "EWU", "EWC", "EWI")
 index_names <- c("SP500", "Nasdaq100", "Russell2000", "EuroStoxx50", "Dax40" ,"Nikkei225", "FTSE100" )
 index <- c("SPY", "QQQ", "IWM", "EXW1.DE", "EXS1.DE", "1329.T", "ISFA.AS")
 
-# vertical chart
+
+list_asset_names <- list(index_names = index_names, em_names = em_names, dm_names = dm_names, 
+                         commodities_names = commodities_names)
+list_asset_codes <- list(index = index, em = em, dm = dm, commodities = commodities)
+
+
+# Get data from Yahoo Finance
+for(i in 1:length(list_asset_names)){
+  # each single asset of the mix
+  for(j in 1:length(list_asset_codes[[1]])){
+    # get all data from yahoo finance
+    getSymbols(list_asset_codes[[i]][j], src="yahoo")
+  }
+}
+
+
+
+
+# Vertical barchart
 sectors_names <- c("IT", "Health_Care", "Financials", "Cons_Discr", "Cons_Stapl", "Communications",
                    "Industrials", "Energy", "Utilities", "Real_Estate", "Materials")
 sectors <- c("QQQ", "XLV", "XLF", "XLY", "XLP", "VOX", "XLI", "XLE", "XLU", "VNQ", "XLB")
 
-asset_names <- index_names
-assets <- index
 
-# Other assets: sp500, gold, ...
-getSymbols(assets,src='yahoo')
+# for vertical bar chart
 getSymbols(sectors)
+dataprep_sectors(sectors)
+
 
 #### Data Preparation
 
@@ -176,13 +193,6 @@ monthly_return_btc$timestamp <- format(as.Date(rownames(monthly_return_btc)), fo
 # Bitcoin daily return 
 daily_return_btc <- dailyReturn(btc) %>% as.data.frame()
 daily_return_btc$timestamp <- format(as.Date(rownames(daily_return_btc)), format = "%Y-%m-%d")
-
-
-#### Other assets -> collect all prices in a list
-dataprep_sectors(sectors)
-
-# remove raw data to clean up global environment (doing so in function is bad idea)
-rm(list = sectors)
 
 
 

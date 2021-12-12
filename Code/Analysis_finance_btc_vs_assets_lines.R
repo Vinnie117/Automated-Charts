@@ -1,10 +1,5 @@
 ######## Linecharts of Performances: Bitcoin vs other asset classes ########
 
-# collect data from "Data Input.R" in lists -> Also done in prior performance analysis
-list_asset_names <- list(index_names = index_names, em_names = em_names, dm_names = dm_names, 
-                         commodities_names = commodities_names)
-list_asset_codes <- list(index = index, em = em, dm = dm, commodities = commodities)
-
 
 #### Data Handling
 
@@ -13,14 +8,6 @@ list_linecharts_btc_vs_assets <- list()
 
 
 for(i in 1:length(list_asset_names)){
-  
-  # This is already done in the prior performance analysis "Analysis_finance_btc_vs_assets_bars.R"
-  ## each single asset of the mix
-  #for(j in 1:length(list_asset_codes[[1]])){
-  #  # get all data from yahoo finance
-  #  getSymbols(list_asset_codes[[i]][j], src="yahoo")
-  #}
-  #  
   
   # fetch data from quantmod and put into list of xts with price data
   dataprep(get(names(list_asset_codes)[i]), get(names(list_asset_names)[i]))

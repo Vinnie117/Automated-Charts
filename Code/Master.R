@@ -52,13 +52,6 @@ list_linecharts_btc_vs_assets[["linechart_btc_vs_dm"]]
 list_linecharts_btc_vs_assets[["linechart_btc_vs_commodities"]]
 
 
-
-source("Code/Analysis_finance_btc_vs_assets_lines.R")
-plot_btc_vs_assets_lines
-
-
-
-
 # Finance: 1 vertical barchart with monthly performance of BTC vs 11 stock sectors
 source("Code/Analysis_finance_btc_vs_sectors.R")
 plot_btc_vs_sectors
@@ -66,7 +59,8 @@ plot_btc_vs_sectors
 
 
 # Cleaning
-rm(list = c(index, em, dm, commodities))
+# remove raw data to clean up global environment (doing so in function is bad idea)
+rm(list = c(index, em, dm, commodities, sectors))
 
 
 
