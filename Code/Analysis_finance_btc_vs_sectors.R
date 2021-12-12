@@ -50,7 +50,7 @@ plot_btc_vs_sectors <- ggplot(data=plot_monthly_df, aes(x=reorder(asset, return)
         axis.text=element_text(size=11)) +
   scale_fill_manual(values = c("steelblue", "orange")) +
   labs(x = "", y = "Return",
-       title = "Market Performance: Returns by Asset Class", 
+       title = "Market Performance: Returns by S&P 500 Sector", 
        subtitle = time,
        caption = "Data: Yahoo Finance") +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +

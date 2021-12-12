@@ -24,8 +24,8 @@ wait <- function(seconds){
   }
 }
 
-
-dataprep <- function(x){
+# some data handling of quantmod data from Yahoo Finance
+dataprep <- function(x, y){
   
   # empty list in global environment to be filled
   list_assets_2 <<- list()
@@ -34,10 +34,10 @@ dataprep <- function(x){
   for (i in 1:length(x)){
     list_assets_2[[i]] <<- na.locf(get(x[i])[,4])       
   }
-  names(list_assets_2) <<- asset_names
+  names(list_assets_2) <<- y
 }
 
-# some data handling of quantmod data from Yahoo Finance
+# some data handling of quantmod data from Yahoo Finance, need a separate one for sector plot (really?)
 dataprep_sectors <- function(x){
   
   # empty list in global environment to be filled
@@ -50,7 +50,33 @@ dataprep_sectors <- function(x){
   names(list_assets_sectors) <<- sectors_names
 }
 
-
+# Function to create a data frame of monthly returns from a list of xts objects with prices
+get_monthly_return <- function(x){
+  
+  # Iterate over a list of zoo objects with (monthly) price data
+  for (i in 1:length(list_assets_2)){
+    
+    # create xts object with monthly returns per asset
+    data <- monthlyReturn(list_assets_2[[i]])
+    #assign(paste0("return_monthly_", names(list_assets_2)[i]), data)
+    ret <- data.frame(timestamp = format(index(data), format="%Y-%m"),
+                      value = data,
+                      row.names = seq(1:nrow(data)))
+    
+    # collect data in a list
+    list_monthly_returns[[x[i]]] <<- ret
+    rm(ret)
+  }
+  
+  df_monthly_returns <<- Reduce(function(x, y) merge(x, y, by = "timestamp", all=TRUE), list_monthly_returns) 
+  names(df_monthly_returns) <<- c("timestamp", names(list_assets_2))
+  
+  
+  # Add BTC monthly returns
+  df_monthly_returns <<- merge(x = monthly_return_btc, y = df_monthly_returns,
+                               by = "timestamp", all = TRUE)
+  names(df_monthly_returns)[2] <<- "Bitcoin"
+}
 
 #### Loading data
 
@@ -81,7 +107,7 @@ getSymbols('CPIAUCSL',src='FRED')
 
 # Specify assets from Yahoo Finance loadad by quantmod
 # (names without spaces!)
-Commodities_names <- c("Gold", "Silver", "Copper", "Nat_Gas", "Lumber", "Crude_Oil", "Carbon")
+commodities_names <- c("Gold", "Silver", "Copper", "Nat_Gas", "Lumber", "Crude_Oil", "Carbon")
 commodities <- c("GC=F", "SI=F", "HG=F", "NG=F", "LBS=F", "CL=F", "KRBN")
 
 em_names <- c("China", "Brazil", "Russia", "India", "S.Korea", "S.Africa", "EmergingMarkets")
@@ -124,22 +150,12 @@ daily_return_btc$timestamp <- format(as.Date(rownames(daily_return_btc)), format
 
 
 #### Other assets -> collect all prices in a list
-dataprep(assets)
+#dataprep(assets, asset_names)
 dataprep_sectors(sectors)
 
 # remove raw data to clean up global environment (doing so in function is bad idea)
-rm(list = assets)
+#rm(list = assets)
 rm(list = sectors)
-
-
-
-
-
-
-
-
-
-
 
 
 

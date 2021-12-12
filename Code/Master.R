@@ -37,8 +37,14 @@ plot_us_cpi
 
 
 # Finance: 4 Barcharts of monthly performances - BTC vs other assets
-source("Code/Performance.R")
-plot_btc_vs_assets_bars
+source("Code/Analysis_finance_btc_vs_assets_bars.R")
+list_barplots_btc_vs_assets[["barplot_btc_vs_index"]]
+list_barplots_btc_vs_assets[["barplot_btc_vs_dm"]]
+list_barplots_btc_vs_assets[["barplot_btc_vs_em"]]
+list_barplots_btc_vs_assets[["barplot_btc_vs_commodities"]]
+
+Analysis_finance_btc_vs_assets_bars
+
 
 # Finance: 4 Linecharts with daily data of yearly performances - BTC vs other assets
 source("Code/Analysis_finance_btc_vs_assets_lines.R")
