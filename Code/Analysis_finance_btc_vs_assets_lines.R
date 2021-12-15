@@ -4,6 +4,15 @@
 # - title changes dynamically
 # - case_when() cannot be used in the main for-loop to fill plotlist bc it does not take S3 objects (ggplot) on RHS as input
 linechart <- function(){
+  
+  # time scale for x-axis
+  last_months <- format(as.Date(plot_daily_df$timestamp), format = "%b-%y") %>% 
+    unique() %>% 
+    length()
+  end <- plot_daily_df$timestamp 
+  end <- floor_date(end[length(end)], "month")
+  start <- end %m-% months(last_months-1)
+  
   ggplot(plot_daily_df, aes(x = as.Date(timestamp), y = index)) + 
     geom_line(aes(color = as.factor(asset)), size = 1) +
     scale_color_manual(values = c("orange", hue_pal()(length(list_asset_names[[i]])))) +
@@ -12,7 +21,7 @@ linechart <- function(){
                                   names(list_asset_names)[i] =="em_names" ~ "Bitcoin vs. Stocks Emerging Markets",
                                   names(list_asset_names)[i] =="dm_names" ~ "Bitcoin vs. Stocks Developed Markets",
                                   names(list_asset_names)[i] =="commodities_names" ~ "Bitcoin vs. Commodities"),
-                        ": Trajectory of Market Performance"), 
+                        ": Performance Trajectory"), 
          subtitle = paste0("Growth of $100 invested over last ", last_months-1 , " months"),
          caption = "Data: Yahoo Finance",
          color = "Asset") +
@@ -69,13 +78,6 @@ for(i in 1:length(list_asset_names)){
   
   
   # Visualization
-  last_months <- format(as.Date(plot_daily_df$timestamp), format = "%b-%y") %>% 
-    unique() %>% 
-    length()
-  end <- plot_daily_df$timestamp 
-  end <- floor_date(end[length(end)], "month")
-  start <- end %m-% months(last_months-1)
-  
   # fill the list with single charts 
   list_linecharts_btc_vs_assets[[i]] <- linechart()
   

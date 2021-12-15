@@ -136,6 +136,7 @@ getSymbols('CPIAUCSL',src='FRED')
 
 # Specify assets from Yahoo Finance loadad by quantmod
 # (names without spaces!)
+# all vectors MUST have same length!
 commodities_names <- c("Gold", "Silver", "Copper", "Nat_Gas", "Lumber", "Crude_Oil", "Carbon")
 commodities <- c("GC=F", "SI=F", "HG=F", "NG=F", "LBS=F", "CL=F", "KRBN")
 
@@ -156,7 +157,7 @@ list_asset_codes <- list(index = index, em = em, dm = dm, commodities = commodit
 
 # Get data from Yahoo Finance
 for(i in 1:length(list_asset_names)){
-  # each single asset of the mix
+  # each single asset of the mix, length(list_asset_codes[[1]]) is hard-coded -> bad!
   for(j in 1:length(list_asset_codes[[1]])){
     # get all data from yahoo finance
     getSymbols(list_asset_codes[[i]][j], src="yahoo")

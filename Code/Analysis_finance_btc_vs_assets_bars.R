@@ -4,6 +4,12 @@
 # - title changes dynamically
 # - case_when() cannot be used in the main for-loop to fill plotlist bc it does not take S3 objects (ggplot) on RHS as input
 barchart <- function(){
+  
+  # Month annotation in subtitle
+  time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)-1] %>% 
+    as.Date() %>% 
+    format(format =  "%B %Y")
+  
   ggplot(data=plot_monthly_df, aes(x=reorder(asset, -return), y=return, fill = as.factor(orange))) +
     geom_bar(stat="identity") +
     theme(legend.position="none") +
@@ -43,10 +49,6 @@ for(i in 1:length(list_asset_names)){
   
   
   # Visualization
-  time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)-1] %>% 
-    as.Date() %>% 
-    format(format =  "%B %Y")
-  
   # fill the list with single charts 
   list_barplots_btc_vs_assets[[i]] <- barchart()
   
