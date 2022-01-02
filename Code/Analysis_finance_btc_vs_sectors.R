@@ -55,5 +55,11 @@ plot_btc_vs_sectors <- ggplot(data=plot_monthly_df, aes(x=reorder(asset, return)
        caption = "Data: Yahoo Finance") +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   coord_flip()
-                                   
+                              
 
+library(ggdark)     
+plot_btc_vs_sectors + 
+  dark_theme_gray() +
+  theme(legend.position="none",
+        axis.title.y=element_blank(),
+        axis.text=element_text(size=11))

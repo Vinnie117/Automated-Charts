@@ -8,12 +8,13 @@ source("Code/Data Input.R")
 # Bitcoin: Generate heatmap of monthly returns
 source("Code/Analysis_heatmap.R")
 plot_heatmap
-
+ggsave("Plots/plot_heatmap.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
 # Bitcoin: Generate stock to flow
 source("Code/Analysis_stock_to_flow.R")
 plot_price_halvings
-plot_s2f
+# plot_s2f
+ggsave("Plots/plot_price_halvings.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
 
 # Bitcoin: Market Cap by Month
@@ -55,6 +56,10 @@ list_linecharts_btc_vs_assets[["linechart_btc_vs_commodities"]]
 # Finance: 1 vertical barchart with monthly performance of BTC vs 11 stock sectors
 source("Code/Analysis_finance_btc_vs_sectors.R")
 plot_btc_vs_sectors
+
+
+
+
 
 
 
