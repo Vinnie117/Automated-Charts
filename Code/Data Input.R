@@ -12,6 +12,7 @@ library(lubridate)         # tidyverse package to work with dates and times
 library(cowplot)           # to arrange plots in a grid
 library(scales)            # to edit ggplot2 scales
 library(viridis)           # for colour scales
+library(ggdark)            # for dark mode in ggplots
 
 #### Functions
 

@@ -124,8 +124,7 @@ df$s2f_price2_15m <- exp(-1.84)*df$s2f_15m^3.36
 # Visualization
 plot_price_halvings <- ggplot(data = df, aes(x = timestamp, y = close, color = months2halvings))+
   geom_point(size = 2) +
-  theme(legend.position="bottom") +
-  labs(color = "Months until next halving", x = "Time", y = "Price in USD",
+  labs(color = "Months until \n next halving", x = "Time", y = "Price in USD",
        title = "Bitcoin: Price and Halving - End of Month", caption = "Data: www.coinmarketcap.com") +
   scale_y_continuous(limits = c(100, 10000000),
                      breaks = c(10, 100, 1000, 10000, 100000, 1000000, 10000000),
@@ -133,7 +132,8 @@ plot_price_halvings <- ggplot(data = df, aes(x = timestamp, y = close, color = m
                      trans='log10') +
   scale_x_continuous(breaks = seq(ymd('2013-01-01'),ymd('2025-01-01'), by = '1 year'),
                      labels = as.character(c(2013:2025))) +
-  theme(legend.key.width = unit(2, 'cm')) +
+  theme(legend.key.width = unit(1.75, 'cm'),
+        legend.position = "bottom") +
   scale_colour_viridis(option = "inferno", trans = "reverse")
 
 
@@ -162,5 +162,3 @@ plot_s2f <- plot_price_halvings +
 #                      labels = as.character(c(2013:2025))) +
 #   scale_color_gradientn(colours = c("red", "yellow", "green", "blue"), trans = 'reverse') +
 #   theme(legend.key.width = unit(2, 'cm'))
-
-

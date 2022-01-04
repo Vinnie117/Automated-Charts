@@ -16,16 +16,15 @@ plot_price_halvings
 # plot_s2f
 ggsave("Plots/plot_price_halvings.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
-
 # Bitcoin: Market Cap by Month
 source("Code/Analysis_bitcoin_market_cap.R")
 plot_btc_market_cap
-
+ggsave("Plots/plot_btc_market_cap.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
 # Bitcoin: Generate market dominance
 source("Code/Analysis_market_dominance.R")
 plot_market_dominance
-
+ggsave("Plots/plot_market_dominance.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
 # Economics: USD M2 money supply
 source("Code/Analysis_usd_m2.R")
@@ -56,7 +55,7 @@ list_linecharts_btc_vs_assets[["linechart_btc_vs_commodities"]]
 # Finance: 1 vertical barchart with monthly performance of BTC vs 11 stock sectors
 source("Code/Analysis_finance_btc_vs_sectors.R")
 plot_btc_vs_sectors
-
+ggsave("Plots/plot_btc_vs_sectors.png", width = 600, height = 800, dpi = 100 ,units = "px")
 
 
 
