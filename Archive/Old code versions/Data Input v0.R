@@ -1,5 +1,14 @@
 ########## Data Input ##########
 
+# COMMENTARY
+
+# This is an old approach to load data which slightly differs from the new way to load data.
+# The old version has one more API call and one more waiting phase
+# Result is only a little bit faster (old 2.9 mins vs. new 2.6 mins)
+# - old: load BTC historical data (earliest possible start date), then wait, then load 1 year altcoin data
+# - new: load historical altcoin data including BTC, i.e. everything, then specify required data 
+
+
 Sys.setlocale("LC_TIME", "English")
 
 # Libraries
@@ -16,20 +25,30 @@ library(ggdark)            # for dark mode in ggplots
 
 
 #### Loading data
+start.time <- Sys.time()
 
 # all active coins
 list_coins <- crypto_list(only_active=TRUE)
-# Data of crypto, sorted by market cap
-crypto_ranks <- list_coins[order(list_coins$rank),] 
 
+# historical Bitcoin data: prices, volume, market cap
+btc_historic_raw <- crypto_history(list_coins, limit=1, start_date="20130430")
+wait(65)
+
+# sorted market caps of crypto
+# Set the date: get start and end date of analysis
+origin <- floor_date(Sys.Date() %m-% years(1), "year") %>% format(format = "%Y%m%d")
+crypto_ranks <- list_coins[order(list_coins$rank),] 
 # top 100 coins -> need to split, otherwise API limit is triggered (Max possible: 84 -> then HTTP error)
 crypto_ranks_1 <- crypto_ranks[1:50,]   
 crypto_ranks_2 <- crypto_ranks[51:100,] 
-
 # Calling API two times
-cryptos_1 <- crypto_history(coin_list = crypto_ranks_1, start_date = "20130430")
+cryptos_1 <- crypto_history(coin_list = crypto_ranks_1, start_date = origin)
 wait(65)
-cryptos_2 <- crypto_history(coin_list = crypto_ranks_2, start_date = "20130430")
+cryptos_2 <- crypto_history(coin_list = crypto_ranks_2, start_date = origin)
+
+# Measure loading times for optimization
+end.time <- Sys.time()
+time.taken <- end.time - start.time
 
 
 # Fetch data from FRED
@@ -84,7 +103,7 @@ dataprep_sectors(sectors)
 #### Data Preparation
 
 # select relevant data
-df_btc <- filter(cryptos_1, name == "Bitcoin") %>% select(1,10)
+df_btc <- btc_historic_raw[,c(1,10)]
 
 # only keep the day date without time
 df_btc$timestamp <- substr(df_btc$timestamp,1,10) %>% as.Date()
@@ -97,5 +116,6 @@ monthly_return_btc$timestamp <- format(as.Date(rownames(monthly_return_btc)), fo
 # Bitcoin daily return 
 daily_return_btc <- dailyReturn(btc) %>% as.data.frame()
 daily_return_btc$timestamp <- format(as.Date(rownames(daily_return_btc)), format = "%Y-%m-%d")
+
 
 

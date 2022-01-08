@@ -1,9 +1,11 @@
 ########## MASTER FILE ##########
 # to generate all monthly charts automatically
 
+# load function
+source("Code/Functions.R")
 
 # load data
-source("Code/Data Input.R")
+source("Code/Data Input Test.R")
 
 # Bitcoin: Generate heatmap of monthly returns
 source("Code/Analysis_heatmap.R")

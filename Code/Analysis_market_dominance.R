@@ -15,6 +15,10 @@ df <- df_raw[,c(1,4,12)]
 bitcoin <- df %>% filter(name == "Bitcoin")
 alts <- df %>% filter(name != "Bitcoin")
 
+# clean the data frame
+bitcoin <- select(bitcoin, -name)
+colnames(bitcoin)[2] <- "btc_market_cap"
+
 # calculate aggregate market cap of altcoins for each date
 alts_marketcap <- alts %>% group_by(timestamp) %>% summarise(market_cap = sum(market_cap))
 alts_marketcap <- data.frame(timestamp = alts_marketcap$timestamp, 
@@ -26,7 +30,7 @@ alts_marketcap$timestamp <- as.Date(alts_marketcap$timestamp)
 
 # Calculate market dominance
 df_plot <- merge(bitcoin, alts_marketcap, by = "timestamp")
-df_plot$market_dom <- bitcoin$market_cap / (alts_marketcap$alts_marketcap + bitcoin$market_cap)
+df_plot$market_dom <- bitcoin$btc_market_cap / (alts_marketcap$alts_marketcap + bitcoin$btc_market_cap)
 
 
 ######## Visualization
@@ -48,8 +52,8 @@ plot_market_dominance <- ggplot(data = df_plot, aes(x = timestamp, y = market_do
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(date_labels = "%b-%y",
                limits = c(date_start, date_end)) +
-  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),5], 2) + 0.02, 
-           label = paste0(round(df_plot[nrow(df_plot),5]*100, 2), "%"), colour = "black")
+  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) + 0.02, 
+           label = paste0(round(df_plot[nrow(df_plot),4]*100, 2), "%"), colour = "black")
 
 
 

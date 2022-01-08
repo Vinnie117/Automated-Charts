@@ -3,7 +3,7 @@
 
 ######## Data Preparation
 # keep relevant data: timestamp and market cap (column 12)
-df <- btc_historic_raw[,c(1,12)]
+df <- cryptos_1 %>% filter(name == "Bitcoin") %>% select(timestamp, market_cap)
 
 # time stamp formatting
 df$timestamp <- substr(df$timestamp,1,10) %>% as.Date()
@@ -44,7 +44,7 @@ plot_btc_market_cap <- ggplot(data = df, aes(x = as.factor(timestamp), y = marke
   scale_y_continuous(labels = unit_format(unit = "T", scale = 1e-12, accuracy = 0.1),
                      breaks = seq(0,1e+13, by = 2e+11)) +
   geom_text(aes(x=as.factor(timestamp), y=market_cap+35000000000, label=delta_percent),
-            size = 2.75) +
+            size = 2.75, colour = "black") +
   labs(x = "Date", y = "in Trillions",
        title = "Bitcoin Market Cap - End of Month", 
        subtitle = "Including MoM-Change" ,
