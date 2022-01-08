@@ -44,7 +44,7 @@ plot_btc_market_cap <- ggplot(data = df, aes(x = as.factor(timestamp), y = marke
   scale_y_continuous(labels = unit_format(unit = "T", scale = 1e-12, accuracy = 0.1),
                      breaks = seq(0,1e+13, by = 2e+11)) +
   geom_text(aes(x=as.factor(timestamp), y=market_cap+35000000000, label=delta_percent),
-            size = 3 ) +
+            size = 2.75) +
   labs(x = "Date", y = "in Trillions",
        title = "Bitcoin Market Cap - End of Month", 
        subtitle = "Including MoM-Change" ,

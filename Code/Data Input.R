@@ -120,7 +120,7 @@ wait(65)
 
 # sorted market caps of crypto
 # Set the date: get start and end date of analysis
-origin <- Sys.Date() %m-% years(1) %>% format(format = "%Y%m%d")
+origin <- floor_date(Sys.Date() %m-% years(1), "month") %>% format(format = "%Y%m%d")
 crypto_ranks <- list_coins[order(list_coins$rank),] 
 # top 100 coins -> need to split, otherwise API limit is triggered (Max possible: 84 -> then HTTP error)
 crypto_ranks_1 <- crypto_ranks[1:50,]   
