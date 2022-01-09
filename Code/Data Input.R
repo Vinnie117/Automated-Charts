@@ -35,6 +35,7 @@ cryptos_2 <- crypto_history(coin_list = crypto_ranks_2, start_date = "20130430")
 # Fetch data from FRED
 getSymbols('M2SL',src='FRED')
 getSymbols('CPIAUCSL',src='FRED')
+getSymbols('BOGZ1FL663067003Q',src='FRED')
 
 
 # Specify assets from Yahoo Finance loadad by quantmod
