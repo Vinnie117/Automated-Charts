@@ -21,3 +21,9 @@ Central Banks
 FRED: leverage and margin accounts
 - linechart
 
+Map of Bitcoin nodes world wide
+
+Monthly Bitcoin dot chart with fear and greed index as coloured fills
+
+
+
