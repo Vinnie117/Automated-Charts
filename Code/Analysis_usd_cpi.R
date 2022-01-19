@@ -48,7 +48,8 @@ plot_us_cpi <- ggplot(data = df, aes(x = timestamp, y = cpi_yoy))+
                      limits = c(x_start, x_end)) +
   labs(x = "Year", y = "CPI Inflation - YoY",
        title = "USA: Consumer Price Index for All Urban Consumers", 
-       subtitle = "All Items in U.S. City Average - Monthly Data" ,
+       subtitle = paste0("All Items in U.S. City Average - Monthly Data - ",
+                         format(Sys.Date() %m-% months(1), format = "%B %Y")) ,
        caption = "Data: FRED St. Louis") +
   annotate(geom = "text",
            x = df[nrow(df),1]+180,

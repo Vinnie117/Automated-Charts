@@ -28,22 +28,26 @@ fill_map <- function(title, legend_fill){
     scale_fill_manual(name = "Level", values = legend_fill)
 }
 
-
-# function for data preparation
-data_prep_map <- function(x){
+# function to prepare the data
+data_prep_map <- function(x, breaks, labels){
   
-  # recode certain entries: "United States" -> "USA"
-  x %>% mutate(country = recode(str_trim(country), "United States" = "USA",
+  # Pass the data frame
+  x %>% 
+    # recode certain entries: "United States" -> "USA"
+    mutate(country = recode(str_trim(country), "United States" = "USA",
                             "United Kingdom" = "UK",
-                            "Korea (Rep.)" = "South Korea"))
+                            "Korea (Rep.)" = "South Korea")) %>% 
+    # cut data into bins
+    mutate(bin = cut(df[,2],
+                     breaks = breaks,
+                     labels = labels))
+  
 }
 
-df <- data_prep_map(df)
 
-
-mutate(bin2 = cut(df$interest_rate,
-                  breaks = c(-Inf, -0.000000001, 0.00000001, 3, 7, 10, Inf),
-                  labels = c("Negative", "0%", ">0% but \u2264 3%",">3% but \u2264 7%", ">7% but \u2264 10%","\u2265 10%")))
+# When using a for-loop...
+var_label <- c("interest_rate", "inflation_rate")
+var_name <- c("Interest rate", "Inflation rate")
 
 ########
 # Policy Rate
@@ -52,17 +56,14 @@ df <- data.frame(country = data_raw[[1]][[1]], interest_rate =data_raw[[1]][["In
 # Convert string with "%" to numeric
 df$interest_rate <- as.numeric(sub("%", "", df$interest_rate))
 
-# Define data bins for legend
-df$bin <- cut(df$interest_rate,
-              breaks = c(-Inf, -0.000000001, 0.00000001, 3, 7, 10, Inf),
-              labels = c("Negative", "0%", ">0% but \u2264 3%",">3% but \u2264 7%", ">7% but \u2264 10%","\u2265 10%"))
-
 
 # Get differences in country naming 
 # setdiff(world_map$region, df$country)
 
-# Recode certain entries
-df <- data_prep_map(df)
+# Define map
+df <- data_prep_map(df,
+                    breaks = c(-Inf, -0.000000001, 0.00000001, 3, 7, 10, Inf),
+                    labels = c("Negative", "0%", ">0% but \u2264 3%",">3% but \u2264 7%", ">7% but \u2264 10%","\u2265 10%")) 
 
 fill_map(title = paste0("Central Bank Policy Rates around the Globe: ", format(Sys.Date(), format = "%B %Y")),
          legend_fill = c("purple",rev(brewer.pal(3, name = "Greens")),"#ffe1e1","red"))
@@ -74,13 +75,11 @@ df <- data.frame(country = data_raw[[1]][[1]], inflation_rate =data_raw[[1]][["I
 # Convert string with "%" to numeric
 df$inflation_rate <- as.numeric(sub("%", "", df$inflation_rate))
 
-df$bin <- cut(df$inflation_rate,
-              breaks = c(-Inf, 0.00000001, 3, 6, 10, Inf),
-              labels = c("\u2264 0%", ">0% but \u2264 3%",">3% but \u2264 6%", ">6% but \u2264 10%", 
-                         "> 10%"))
-
-# Recode certain entries
-df <- data_prep_map(df)
+# Define map
+df <- data_prep_map(df,
+                    breaks = c(-Inf, 0.00000001, 3, 6, 10, Inf),
+                    labels = c("\u2264 0%", ">0% but \u2264 3%",">3% but \u2264 6%", ">6% but \u2264 10%", 
+                               "> 10%")) 
 
 fill_map(title = paste0("Global Inflation Rates YoY: ", format(Sys.Date(), format = "%B %Y")),
          legend_fill = c(rev(brewer.pal(4, name = "Reds"))))
@@ -93,14 +92,13 @@ df <- data.frame(country = data_raw[[1]][[1]], jobless_rate =data_raw[[1]][["Job
 # Convert string with "%" to numeric
 df$jobless_rate <- as.numeric(sub("%", "", df$jobless_rate))
 
-df$bin <- cut(df$jobless_rate,
-              breaks = c(0, 3, 6, 10, Inf),
-              labels = c(">0% but \u2264 3%",">3% but \u2264 6%", ">6% but \u2264 10%", 
-                         "> 10%"))
 
-# Recode certain entries
-df <- data_prep_map(df)
+# Define map
+df <- data_prep_map(df,
+                    breaks = c(0, 3, 6, 10, Inf),
+                    labels = c(">0% but \u2264 3%",">3% but \u2264 6%", ">6% but \u2264 10%", "> 10%")) 
 
+# Draw map
 fill_map(title = paste0("Unemployment Rates around the Globe: ", format(Sys.Date(), format = "%B %Y")),
          legend_fill = c(rev(brewer.pal(4, name = "Reds"))))
 
@@ -112,14 +110,12 @@ df <- data.frame(country = data_raw[[1]][[1]], debt_gdp =data_raw[[1]][["Debt/GD
 # Convert string with "%" to numeric
 df$debt_gdp <- as.numeric(sub("%", "", df$debt_gdp))
 
-df$bin <- cut(df$debt_gdp,
-              breaks = c(0, 50, 100, 150, Inf),
-              labels = c(">0% but \u2264 50%",">50% but \u2264 100%", ">100% but \u2264 150%", 
-                         "> 150%"))
+# Define map
+df <- data_prep_map(df,
+                    breaks = c(0, 50, 100, 150, Inf),
+                    labels = c(">0% but \u2264 50%",">50% but \u2264 100%", ">100% but \u2264 150%", "> 150%")) 
 
-# Recode certain entries
-df <- data_prep_map(df)
-
+# Draw map
 fill_map(title = paste0("Global Debt to GDP Ratios: ", format(Sys.Date(), format = "%B %Y")),
          legend_fill = c(rev(brewer.pal(4, name = "Reds"))))
 
@@ -131,16 +127,13 @@ df <- data.frame(country = data_raw[[1]][[1]], gdp_yoy =data_raw[[1]][["GDP YoY"
 # Convert string with "%" to numeric
 df$gdp_yoy <- as.numeric(sub("%", "", df$gdp_yoy))
 
-df$bin <- cut(df$gdp_yoy,
-              breaks = c(-Inf, 2, 4, 6, Inf),
-              labels = c("\u2264 2%"," >2% but \u2264 4%", ">4% but \u2264 6%", 
-                         "> 6%"))
+# Define map
+df <- data_prep_map(df,
+                    breaks = c(-Inf, 2, 4, 6, Inf),
+                    labels = c("\u2264 2%"," >2% but \u2264 4%", ">4% but \u2264 6%", "> 6%")) 
 
-# Recode certain entries
-df <- data_prep_map(df)
-
+# Draw map
 fill_map(title = paste0("Gross Domestic Prdocut (YoY) around the Globe: ", format(Sys.Date(), format = "%B %Y")),
-         legend_fill = c(rev(brewer.pal(4, name = "Reds"))))
-
+         legend_fill = c(rev(brewer.pal(4, name = "Greens"))))
 
 
