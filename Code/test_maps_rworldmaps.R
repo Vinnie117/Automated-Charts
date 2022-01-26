@@ -8,12 +8,14 @@ library(raster)    # to import GADM data (boundaries for level 2 geographics)
 # https://stackoverflow.com/questions/28535597/creating-maps-in-r-just-like-the-way-rworldmap-does-but-for-specific-country-wit
 
 
-newmap <- getMap(resolution = "low")
+# Source: https://egallic.fr/en/european-map-using-r/
+
+newmap <- getMap(resolution = "coarse")
 plot(newmap, colour = "grey")
 
 
 # map of the world
-worldMap <- getMap(resolution = "low")
+worldMap <- getMap(resolution = "coarse")
 plot(worldMap)
 
 # selecting some countries
@@ -39,6 +41,8 @@ europeCoords <- do.call("rbind", europeCoords)
 # Add some data for each member
 value <- sample(x = seq(0,3,by = 0.1), size = length(europeanUnion), replace = TRUE)
 europeanUnionTable <- data.frame(country = europeanUnion, value = value)
+
+# merge data with map data
 europeCoords$value <- europeanUnionTable$value[match(europeCoords$region,europeanUnionTable$country)]
 
 
