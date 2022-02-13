@@ -52,7 +52,7 @@ plot_market_dominance <- ggplot(data = df_plot, aes(x = timestamp, y = market_do
   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
   scale_x_date(date_labels = "%b-%y",
                limits = c(date_start, date_end)) +
-  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) + 0.02, 
+  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) + 0.05, 
            label = paste0(round(df_plot[nrow(df_plot),4]*100, 2), "%"), colour = "black")
 
 
