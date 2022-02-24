@@ -13,7 +13,9 @@ library(cowplot)           # to arrange plots in a grid
 library(scales)            # to edit ggplot2 scales
 library(viridis)           # for colour scales
 library(ggdark)            # for dark mode in ggplots
-
+library(httr)              # to use API (GET requests)
+library(jsonlite)          # to deal with JSONs
+library(countrycode)       # to convert country codes to country names
 
 #### Loading data
 
@@ -98,5 +100,14 @@ monthly_return_btc$timestamp <- format(as.Date(rownames(monthly_return_btc)), fo
 # Bitcoin daily return 
 daily_return_btc <- dailyReturn(btc) %>% as.data.frame()
 daily_return_btc$timestamp <- format(as.Date(rownames(daily_return_btc)), format = "%Y-%m-%d")
+
+
+##################################
+# API calls
+
+# Bitcoin Fear and Greed Index
+# limit = 0 for max available history
+sentiment <- GET("https://api.alternative.me/fng/?limit=0")
+
 
 

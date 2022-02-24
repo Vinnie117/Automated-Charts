@@ -70,7 +70,10 @@ source("Code/Analysis_finance_btc_vs_sectors.R")
 plot_btc_vs_sectors
 ggsave("Plots/plot_btc_vs_sectors.png", width = 600, height = 800, dpi = 100 ,units = "px")
 
-
+# Bitcoin: Fear and Greed Index
+source("Code/Analysis_btc_sentiment.R")
+plot_btc_sentiment
+ggsave("Plots/plot_btc_sentiment.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
 
 
