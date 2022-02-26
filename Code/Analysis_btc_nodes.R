@@ -1,21 +1,8 @@
-######## Test to work with APIs and JSON data ########
-######## Bitoin Global Node Distribution
-
-library(tidyverse)
-library(httr)           # to use API (GET requests)
-library(jsonlite)       # to deal with JSONs
-library(countrycode)    # to convert country codes to country names
-library(scales)         # unit_format() -> formatting of y-scale
-library(rworldmap)
-library(raster)
-library(RColorBrewer)
+######## Bitoin Global Node Distribution ########
 
 
-###############################################
 # Data preparation
-
-resp <- GET("https://bitnodes.io/api/v1/snapshots/latest")
-data <- fromJSON(rawToChar(resp$content))
+data <- fromJSON(rawToChar(nodes$content))
 df <- as.data.frame(data[["nodes"]])
 df <- as.data.frame(t(df))
 

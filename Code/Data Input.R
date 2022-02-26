@@ -16,6 +16,7 @@ library(ggdark)            # for dark mode in ggplots
 library(httr)              # to use API (GET requests)
 library(jsonlite)          # to deal with JSONs
 library(countrycode)       # to convert country codes to country names
+library(RColorBrewer)      # for mixing (individual) colour palettes
 
 #### Loading data
 
@@ -109,5 +110,6 @@ daily_return_btc$timestamp <- format(as.Date(rownames(daily_return_btc)), format
 # limit = 0 for max available history
 sentiment <- GET("https://api.alternative.me/fng/?limit=0")
 
-
+# Bitcoin global node distribution
+nodes <- GET("https://bitnodes.io/api/v1/snapshots/latest")
 

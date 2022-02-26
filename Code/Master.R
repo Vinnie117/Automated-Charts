@@ -52,7 +52,6 @@ ggsave("Plots/barplot_btc_vs_em.png", width = 600, height = 335, dpi = 100 ,unit
 list_barplots_btc_vs_assets[["barplot_btc_vs_commodities"]]
 ggsave("Plots/barplot_btc_vs_commodities.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
-
 # Finance: 4 Linecharts with daily data of yearly performances - BTC vs other assets
 source("Code/Analysis_finance_btc_vs_assets_lines.R")
 list_linecharts_btc_vs_assets[["linechart_btc_vs_index"]]
@@ -63,7 +62,6 @@ list_linecharts_btc_vs_assets[["linechart_btc_vs_dm"]]
 ggsave("Plots/linechart_btc_vs_dm.png", width = 600, height = 335, dpi = 100 ,units = "px")
 list_linecharts_btc_vs_assets[["linechart_btc_vs_commodities"]]
 ggsave("Plots/linechart_btc_vs_commodities.png", width = 600, height = 335, dpi = 100 ,units = "px")
-
 
 # Finance: 1 vertical barchart with monthly performance of BTC vs 11 stock sectors
 source("Code/Analysis_finance_btc_vs_sectors.R")
