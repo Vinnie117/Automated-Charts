@@ -75,6 +75,10 @@ source("Code/Analysis_btc_sentiment.R")
 plot_btc_sentiment
 ggsave("Plots/plot_btc_sentiment.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
+# Bitcoin: Global node distribution
+source("Code/Analysis_btc_nodes.R")
+plot_btc_nodes
+ggsave("Plots/plot_btc_nodes.png", width = 1600, height = 900, dpi = 100 ,units = "px")
 
 
 
