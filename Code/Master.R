@@ -35,6 +35,7 @@ plot_m2
 # Economics: U.S. CPI inflation YoY
 source("Code/Analysis_usd_cpi.R")
 plot_us_cpi
+ggsave("Plots/plot_us_cpi.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
 # Economics: U.S. Margin Accounts at Brokers and Dealers
 source("Code/Analysis_econ_margin_accounts.R")
@@ -73,7 +74,7 @@ source("Code/Analysis_btc_sentiment.R")
 plot_btc_sentiment
 ggsave("Plots/plot_btc_sentiment.png", width = 600, height = 335, dpi = 100 ,units = "px")
 
-# Bitcoin: Global node distribution
+# Bitcoin: Global node distribution (font is optimized for 1600 x 900 resolution)
 source("Code/Analysis_btc_nodes.R")
 plot_btc_nodes
 ggsave("Plots/plot_btc_nodes.png", width = 1600, height = 900, dpi = 100 ,units = "px")
