@@ -10,7 +10,7 @@ ts <- xts(df[,-1], order.by=df[,1])
 #### calculate monthly returns
 monthly_returns <- monthlyReturn(ts)
 # exclude first row (redundant) and last row (not a comlete month)
-monthly_returns <- monthly_returns[-1,] #[-c(1,nrow(monthly_returns)),] or [-1,] ?
+monthly_returns <- monthly_returns[-c(1,nrow(monthly_returns)),] #[-c(1,nrow(monthly_returns)),] or [-1,] ?
 # indexing of monthly_returns probably depends on the date of script execution
 # -> on 1st of month there is no monthly return
 
