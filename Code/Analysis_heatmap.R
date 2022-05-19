@@ -11,9 +11,9 @@ ts <- xts(df[,-1], order.by=df[,1])
 monthly_returns <- monthlyReturn(ts)
 # exclude first row (redundant) and incompleted months
 if (format(Sys.Date(), "%d") == "01"){
-  monthly_returns <- monthly_returns[-1,] 
+  monthly_returns <- monthly_returns[-1,] # on the first month day, the whole previous month is available -> keep it
 } else {
-  monthly_returns <- monthly_returns[-c(1,nrow(monthly_returns)),]
+  monthly_returns <- monthly_returns[-c(1,nrow(monthly_returns)),] # on any other day, trim the incomplete month
 }
 
 # convert back to dataframe required by ggplot
