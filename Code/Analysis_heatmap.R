@@ -9,15 +9,11 @@ ts <- xts(df[,-1], order.by=df[,1])
 
 #### calculate monthly returns
 monthly_returns <- monthlyReturn(ts)
-# exclude first row (redundant) 
-monthly_returns <- monthly_returns[-1,]
-
-# remove last month in data, if month has not ended yet
-if (end(monthly_returns) != Sys.Date() - 1){ 
-  monthly_returns <- first(monthly_returns, "-1 month")
+# exclude first row (redundant) and incompleted months
+if (format(Sys.Date(), "%d") == "01"){
+  monthly_returns <- monthly_returns[-1,] 
 } else {
-  # only the case for the first day of the month
-  monthly_returns <- monthly_returns
+  monthly_returns <- monthly_returns[-c(1,nrow(monthly_returns)),]
 }
 
 # convert back to dataframe required by ggplot
