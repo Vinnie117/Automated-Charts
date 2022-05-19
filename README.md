@@ -1,5 +1,5 @@
 # Automated-Charts
-This repository contains code for the latest end-of-month charts revolving around Bitcoin. All plots are generated within one execution of Master.R
+This repository contains code for the latest end-of-month charts revolving around Bitcoin and related (economic) topics. All plots are generated within one execution of Master.R
 
 Examples:
 
