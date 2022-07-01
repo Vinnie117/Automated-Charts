@@ -3,8 +3,8 @@ This repository contains code for the latest end-of-month charts revolving aroun
 
 Examples:
 
-![plot_heatmap](https://user-images.githubusercontent.com/52510339/169369504-69e2a2d8-1539-474b-9561-ec48d83cb234.png)
-![plot_price_halvings](https://user-images.githubusercontent.com/52510339/169369618-b4a3cafd-3ea6-4964-860d-3c2001636fcd.png)
-![barplot_btc_vs_index](https://user-images.githubusercontent.com/52510339/169369837-1826dfc4-886e-4913-a6e7-3aa38e0d59f4.png)
-![linechart_btc_vs_index](https://user-images.githubusercontent.com/52510339/169369887-e62eee5f-ac57-4db1-ac44-bc9d150b0977.png)
+![plot_heatmap](https://user-images.githubusercontent.com/52510339/169403867-2bbec9d0-dcb7-401c-bb18-d58386df4796.png)
+![plot_btc_sentiment](https://user-images.githubusercontent.com/52510339/169403887-1794fc80-4c75-48d0-ad78-53e3b716a4a3.png)
+![linechart_btc_vs_index](https://user-images.githubusercontent.com/52510339/169403920-c690e3ef-38e2-4925-a857-05eb688fb986.png)
+![barplot_btc_vs_index](https://user-images.githubusercontent.com/52510339/169403934-713530f7-b1df-458a-be8f-2319c07a128d.png)
 ![grafik](https://user-images.githubusercontent.com/52510339/169369487-f62689fb-c03f-4132-8fbe-07cab692f44f.png)
