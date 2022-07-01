@@ -32,15 +32,17 @@ alts_marketcap$timestamp <- as.Date(alts_marketcap$timestamp)
 df_plot <- merge(bitcoin, alts_marketcap, by = "timestamp")
 df_plot$market_dom <- bitcoin$btc_market_cap / (alts_marketcap$alts_marketcap + bitcoin$btc_market_cap)
 
+# start and end of the plotted time series
+date_end <- date_current %m+% months(1)   
+date_start <- date_current_floor %m-% months(12) 
+df_plot <- df_plot[df_plot$timestamp > date_start-1 & df_plot$timestamp < date_end, ]
 
 ######## Visualization
 
 # current date
 date_current <- as.Date(format(Sys.Date()))
 date_current_floor <- floor_date(date_current, "month")
-# start and end of the plotted time series
-date_end <- date_current %m+% months(1)   
-date_start <- date_current_floor %m-% months(12) 
+
 
 
 plot_market_dominance <- ggplot(data = df_plot, aes(x = timestamp, y = market_dom)) +
@@ -49,10 +51,9 @@ plot_market_dominance <- ggplot(data = df_plot, aes(x = timestamp, y = market_do
        x = "Time", y = "Market Dominance" ,
        subtitle = "Bitcoin market share among top 100 cryptocurrencies",
        caption = "Note: Only active coins included. Delisted coins are ignored. \n Data: www.coinmarketcap.com") +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
-  scale_x_date(date_labels = "%b-%y",
-               limits = c(date_start, date_end)) +
-  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) + 0.05, 
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0.4, 0.51)) +
+  scale_x_date(date_labels = "%b-%y") +
+  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) - 0.01, 
            label = paste0(round(df_plot[nrow(df_plot),4]*100, 2), "%"), colour = "black")
 
 
