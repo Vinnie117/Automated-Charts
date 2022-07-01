@@ -6,7 +6,7 @@
 barchart <- function(){
   
   # Month annotation in subtitle
-  time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)-1] %>% 
+  time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)] %>% 
     as.Date() %>% 
     format(format =  "%B %Y")
   
@@ -44,7 +44,7 @@ for(i in 1:length(list_asset_names)){
   
   # prepare data suitable for ggplot2
   plot_monthly_df <- data.frame(asset = names(df_monthly_returns)[-1],
-                                return = c(t(df_monthly_returns[nrow(df_monthly_returns)-1,c(2:length(df_monthly_returns))])),
+                                return = c(t(df_monthly_returns[nrow(df_monthly_returns),c(2:length(df_monthly_returns))])),
                                 orange = c(1,rep(0,length(list_assets_2))))
   
   
@@ -55,4 +55,7 @@ for(i in 1:length(list_asset_names)){
   names(list_barplots_btc_vs_assets)[[i]] <- paste0("barplot_btc_vs_", names(list_asset_codes[i]))
 
 }
+
+
+
 

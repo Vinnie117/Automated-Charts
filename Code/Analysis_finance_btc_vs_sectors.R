@@ -32,14 +32,14 @@ names(df_monthly_returns)[2] <- "Bitcoin"
 
 #### Barplot
 plot_monthly_df <- data.frame(asset = names(df_monthly_returns)[-1],
-                              return = c(t(df_monthly_returns[nrow(df_monthly_returns)-1,c(2:length(df_monthly_returns))])),
+                              return = c(t(df_monthly_returns[nrow(df_monthly_returns),c(2:length(df_monthly_returns))])),
                               orange = c(1,rep(0,length(sectors_names)))
 )
 
 
 # For stock market sectors (11 bars!) 
 # vertical plot: 600 x 800 fits for Twitter mobile! (vertical image)
-time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)-1] %>% 
+time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)] %>% 
   as.Date() %>% 
   format(format =  "%B %Y")
 
