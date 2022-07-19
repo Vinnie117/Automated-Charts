@@ -44,7 +44,7 @@ for(i in 1:length(list_asset_names)){
   
   # prepare data suitable for ggplot2
   plot_monthly_df <- data.frame(asset = names(df_monthly_returns)[-1],
-                                return = c(t(df_monthly_returns[nrow(df_monthly_returns),c(2:length(df_monthly_returns))])),
+                                return = c(t(df_monthly_returns[nrow(df_monthly_returns)-1,c(2:length(df_monthly_returns))])),
                                 orange = c(1,rep(0,length(list_assets_2))))
   
   
@@ -56,6 +56,7 @@ for(i in 1:length(list_asset_names)){
 
 }
 
-
-
-
+list_barplots_btc_vs_assets[1]
+list_barplots_btc_vs_assets[2]
+list_barplots_btc_vs_assets[3]
+list_barplots_btc_vs_assets[4]
