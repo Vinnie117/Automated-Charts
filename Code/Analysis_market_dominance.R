@@ -33,21 +33,20 @@ df_plot <- merge(bitcoin, alts_marketcap, by = "timestamp")
 df_plot$market_dom <- bitcoin$btc_market_cap / (alts_marketcap$alts_marketcap + bitcoin$btc_market_cap)
 
 # start and end of the plotted time series
+# current date
+date_current <- as.Date(format(Sys.Date()))
+date_current_floor <- floor_date(date_current, "month")
+
 date_end <- date_current %m+% months(1)   
 date_start <- date_current_floor %m-% months(12) 
 df_plot <- df_plot[df_plot$timestamp > date_start-1 & df_plot$timestamp < date_end, ]
 
 ######## Visualization
 
-# current date
-date_current <- as.Date(format(Sys.Date()))
-date_current_floor <- floor_date(date_current, "month")
-
-
 
 plot_market_dominance <- ggplot(data = df_plot, aes(x = timestamp, y = market_dom)) +
   geom_line(size = 2, colour = "orange") +
-  labs(title = paste0("Bitcoin Market Dominance - ", format(Sys.Date(), format = "%B %Y")), 
+  labs(title = paste0("Bitcoin Market Dominance - on ", format(Sys.Date(), format = "%B %d, %Y")), 
        x = "Time", y = "Market Dominance" ,
        subtitle = "Bitcoin market share among top 100 cryptocurrencies",
        caption = "Note: Only active coins included. Delisted coins are ignored. \n Data: www.coinmarketcap.com") +
