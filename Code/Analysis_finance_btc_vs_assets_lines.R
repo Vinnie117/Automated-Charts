@@ -22,7 +22,7 @@ linechart <- function(){
                                   names(list_asset_names)[i] =="dm_names" ~ "Bitcoin vs. Stocks Developed Markets",
                                   names(list_asset_names)[i] =="commodities_names" ~ "Bitcoin vs. Commodities"),
                         ": Performance Trajectory"), 
-         subtitle = paste0("Growth of $100 invested over last ", last_months, " months"),
+         subtitle = paste0("Growth of $100 invested over last ", last_months-1 , " months"),
          caption = "Data: Yahoo Finance",
          color = "Asset") +
     scale_x_date(date_labels = "%b-%y", breaks = seq(start, end, by = "2 months")) +
