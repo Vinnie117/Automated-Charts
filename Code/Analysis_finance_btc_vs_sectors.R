@@ -39,8 +39,14 @@ plot_monthly_df <- data.frame(asset = names(df_monthly_returns)[-1],
 
 # For stock market sectors (11 bars!) 
 # vertical plot: 600 x 800 fits for Twitter mobile! (vertical image)
-time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)] %>% 
-  as.Date() %>% 
+
+#time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)] %>% 
+#  as.Date() %>% 
+#  format(format =  "%B %Y")
+
+time <- df_monthly_returns[nrow(df_monthly_returns)-1,1] %>%
+  paste("-01",sep="") %>% 
+  as.Date() %>%
   format(format =  "%B %Y")
 
 plot_btc_vs_sectors <- ggplot(data=plot_monthly_df, aes(x=reorder(asset, return), y=return, fill = as.factor(orange))) +

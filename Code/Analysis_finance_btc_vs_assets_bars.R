@@ -6,18 +6,15 @@
 barchart <- function(){
   
   # Month annotation in subtitle
+  
   #time <- rownames(monthly_return_btc)[nrow(monthly_return_btc)-1] %>% 
   #  as.Date() %>% 
   #  format(format =  "%B %Y")
-  
   
   time <- df_monthly_returns[nrow(df_monthly_returns)-1,1] %>%
     paste("-01",sep="") %>% 
     as.Date() %>%
     format(format =  "%B %Y")
-  
-  
-  
   
   ggplot(data=plot_monthly_df, aes(x=reorder(asset, -return), y=return, fill = as.factor(orange))) +
     geom_bar(stat="identity") +
