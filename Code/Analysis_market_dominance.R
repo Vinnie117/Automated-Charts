@@ -52,7 +52,7 @@ plot_market_dominance <- ggplot(data = df_plot, aes(x = timestamp, y = market_do
        caption = "Note: Only active coins included. Delisted coins are ignored. \n Data: www.coinmarketcap.com") +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0.4, 0.51)) +
   scale_x_date(date_labels = "%b-%y") +
-  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) - 0.01, 
+  annotate(geom = "text", x = df_plot[nrow(df_plot),1], y = round(df_plot[nrow(df_plot),4], 2) + 0.015, 
            label = paste0(round(df_plot[nrow(df_plot),4]*100, 2), "%"), colour = "black")
 
 
